@@ -1,19 +1,19 @@
 import React from 'react'
-import Navbar from './components/Navbar'
-import Login from './components/Login'
-import SignUp from './components/SignUp'
+import ReactDOM from 'react-dom/client'
+import Register from './containers/Register'
+import SignIn from './containers/SignIn'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 
 const App = () => {
   return (
-    <div className='bg-primary'>
-      <Navbar/>
-      <div className='flex justify-center bg-slate-300'>
-        <Login/>
-      </div>
-    </div>
-  )
-}
-
-export default App
-
+     <>
+        <Routes>
+           <Route path="/" element={<SignIn />} />
+           <Route path="/signup" element={<Register />} />
+        </Routes>
+     </>
+  );
+ };
+ 
+ export default App;
