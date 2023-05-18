@@ -1,11 +1,11 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
+import Titlebar from '../components/Titlebar'
 import Login from '../components/Login'
 
 const SignIn = () => {
     return (
         <div className='bg-primary'>
-          <Navbar/>
+          <Titlebar/>
           <div className='flex justify-center bg-slate-300'>
             <Login/>
           </div>
