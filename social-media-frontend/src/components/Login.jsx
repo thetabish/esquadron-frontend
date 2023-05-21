@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import logoImage from "../../public/assests/logo.jpg";
 export default function Login() {
     return (
 
         <div className="my-3 relative flex flex-col justify-center min-h-screen ">
             <div className="w-96 p-9 m-auto bg-white rounded-md shadow-xl shadow-slate-600/40 lg:max-w-xl">
+            <img src={logoImage} alt="Meowtopia Logo" className="" />
                 <h1 className="text-3xl font-semibold text-center text-purple-700 uppercase">
                     Sign in
                 </h1>
@@ -38,7 +40,7 @@ export default function Login() {
                         href="#"
                         className="text-xs text-purple-600 hover:underline"
                     >
-                        Forget Password?
+                        Forgot Password?
                     </a>
                     <div className="mt-6">
                         <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
