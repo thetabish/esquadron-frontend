@@ -2,9 +2,9 @@ import React from 'react'
 
 const Rightbar = () => {
     return (
-        <div className='flex-3 sticky top-16 h-[calc(100%-4rem)] bg-slate-300'>
+        <div className='flex-3 sticky top-14 h-[calc(100%-4rem)]'>
             <div className="container p-5 ">
-                <div className="item mb-5 p-5 shadow-lg bg-slate-50 rounded-md">
+                <div className="item mb-5 p-5 shadow-lg bg-slate-100 rounded-md">
                     <span className='text-gray-600'>Suggestions</span>
                     <div className="user flex items-center justify-between py-5 px-0">
                         <div className="userInfo flex items-center gap-3 relative">
