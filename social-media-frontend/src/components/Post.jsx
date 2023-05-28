@@ -6,7 +6,7 @@ import Heart from '../assets/like.png'
 const Post = ({ data }) => {
     return (
       <div className="flex flex-col p-4 bg-cardColor rounded-lg gap-4">
-        <img src={data.img} alt="" className="w-full max-h-20rem object-cover rounded-md" />
+        <img src={data.img} alt="" className="w-full h-2/3 object-cover rounded-md" />
   
         <div className="flex items-start gap-6">
           <img src={Heart} alt="" />

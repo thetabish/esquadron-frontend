@@ -19,6 +19,7 @@ function Navbar() {
           <div className="ml-10 flex items-baseline space-x-4 gap-10 font-poppins text-white">
             <a href="#">Home</a>
             <a href="#">Profile</a>
+            <a href="#">Logout</a>
           </div>
         </div>
         <div className="-mr-2 flex md:hidden">
