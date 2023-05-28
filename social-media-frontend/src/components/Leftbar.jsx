@@ -1,9 +1,12 @@
 import React from 'react'
+import ProfileCard from './ProfileCard'
 
-const Sidebar = () => {
+const Leftbar = () => {
   return (
-    <div>Sidebar</div>
+   <div className="flex flex-col gap-4 items-center overflow-auto">
+       <ProfileCard/>
+   </div>
   )
 }
 
-export default Sidebar
+export default Leftbar
