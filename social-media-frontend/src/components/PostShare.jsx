@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { UilScenery, UilPlayCircle, UilTimes } from "@iconscout/react-unicons"
+import Profile from "../assets/profileImg.jpg"
+
 
 const PostShare = () => {
     const [image, setImage] = useState(null)
@@ -15,11 +17,11 @@ const PostShare = () => {
 
     return (
         <>
-            <div className='PostShare flex gap-4 bg-slate-100 p-4 rounded-2xl shadow-lg'>
+            <div className='PostShare flex gap-4 bg-slate-100 p-4 rounded-2xl shadow-md w-full'>
                 <img
-                    src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                    src={Profile}
                     alt=""
-                    className='w-12 h-12 rounded-md object-cover'
+                    className='w-12 h-12 rounded-full object-cover'
                 />
                 <div className='flex flex-col w-5/6 gap-4'>
                     <input type="text" placeholder="What's happening?" className='bg-slate-300 rounded-xl p-3 text-base text-black outline-none' />
