@@ -4,7 +4,7 @@ import Post from './Post.jsx'
 
 const Posts = () => {
     return (
-      <div className="flex flex-col gap-4">
+      <div>
           {PostsData.map((post, id)=>{
               return <Post data={post} id={id}/>
           })}
