@@ -3,7 +3,7 @@ import { Followers } from "../Data/FollowersData";
 
 const FollowersCard = () => {
   return (
-    <div className="FollowersCard w-90% h-min flex flex-col gap-3 bg-slate-200 p-4 rounded-lg w-90% shadow-md mt-3 mr-3 py-5">
+    <div className="FollowersCard w-90% h-min flex flex-col gap-3 bg-slate-200 p-4 rounded-lg w-90% shadow-md mt-3 mr-3 py-5 font-poppins">
 
       <div className="flex justify-between items-center cursor-pointer">
             <div className="text-lg font-bold">Followers</div>

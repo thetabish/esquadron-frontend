@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const ProfileCard = () => {
     const ProfilePage = true;
     return (
-        <div className="ProfileCard bg-slate-200 rounded-xl flex flex-col relative gap-4 ml-4 mt-3 shadow-md">
+        <div className="ProfileCard bg-slate-200 rounded-xl flex flex-col relative gap-4 ml-4 mt-3 shadow-md font-poppins">
             <div className="ProfileImages relative flex flex-col items-center justify-center">
                 <img src={Cover} alt="" className="w-full" />
                 <img

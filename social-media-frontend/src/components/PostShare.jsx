@@ -17,7 +17,7 @@ const PostShare = () => {
 
     return (
         <>
-            <div className='PostShare flex gap-4 bg-slate-100 p-4 rounded-2xl shadow-md w-full'>
+            <div className='PostShare flex gap-4 bg-slate-100 p-4 rounded-2xl shadow-md w-full font-poppins'>
                 <img
                     src={Profile}
                     alt=""
