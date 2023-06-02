@@ -12,6 +12,7 @@ function SignUpPage() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
+  const [userName, setuserName] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [country, setCountry] = useState(null);
@@ -25,6 +26,9 @@ function SignUpPage() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+  const handleUserNameChange = (e) => {
+    setuserName(e.target.value);
   };
 
   const handleDateOfBirthChange = (e) => {
@@ -65,6 +69,7 @@ function SignUpPage() {
     const signupData = {
       email,
       password,
+      userName,
       dateOfBirth,
       country,
       city,
@@ -82,8 +87,7 @@ function SignUpPage() {
       .then((data) => {
         // Handle the response from the backend
         console.log(data);
-        navigate("/feed");
-        navigate("/feed", { replace: true });
+        navigate('/feed', { state: { userData: data }, replace: true });
         // Redirect to a success page or perform any other actions
       })
       .catch((error) => {
@@ -149,6 +153,22 @@ function SignUpPage() {
             {passwordError && (
               <p className="text-red-500 text-xs mt-1">{passwordError}</p>
             )}
+          </div>
+          <div className="mb-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-semibold text-gray-800"
+            >
+              User Name
+            </label>
+            <input
+              type="userName"
+              id="userName"
+              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              value={userName}
+              onChange={handleUserNameChange}
+              required
+            />
           </div>
 
           <div className="mb-2">
