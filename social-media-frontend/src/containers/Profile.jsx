@@ -4,6 +4,7 @@ import ProfileLeft from '../components/ProfileLeft'
 import MainProfileCard from '../components/MainProfileCard'
 import PostSide from '../components/PostSide'
 import Navbar from '../components/Navbar'
+import FollowersCard from '../components/FollowersCard'
 
 const Profile = () => {
   return (
@@ -17,6 +18,7 @@ const Profile = () => {
             <div className=''><MainProfileCard/></div>
             <PostSide/>
         </div>
+        <FollowersCard/>
     </div>
     </>
   )

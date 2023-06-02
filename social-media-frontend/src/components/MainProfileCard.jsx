@@ -16,8 +16,8 @@ const MainProfileCard = () => {
           className="w-40 h-40 rounded-full absolute bottom-[-3rem] shadow-lg shadow-indigo-500/50"
         />
       </div>
-      <div className="ProfileName flex flex-col items-center mt-12 gap-2">
-        <span className="font-bold">Avatar Aang</span>
+      <div className="ProfileName flex flex-col items-center justify-center mt-12 gap-2">
+        <span className="font-bold text-xl">Avatar Aang</span>
         <span>Senior Airbender</span>
       </div>
       <hr className="w-4/5 flex flex-col items-center justify-center self-center border border-slate-500" />
@@ -37,7 +37,7 @@ const MainProfileCard = () => {
       </div>
       <hr className="w-4/5 flex flex-col items-center justify-center self-center border border-slate-500" />
       <span className="font-bold text-orange-500 self-center mb-4 cursor-pointer">
-        Profile
+        Follow
       </span>
     </div>
   );

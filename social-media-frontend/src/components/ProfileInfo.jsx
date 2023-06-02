@@ -6,7 +6,7 @@ const ProfileInfo = () => {
   return (
     <div className='flex flex-col gap-3 bg-slate-200 p-4 rounded-lg w-90% shadow-md mt-3 ml-3'>
         <div className="flex justify-between items-center cursor-pointer">
-            <h4>Your Info</h4>
+            <h4 className='text-lg'><b>Bio</b></h4>
             <UilPen/>
         </div>
 
