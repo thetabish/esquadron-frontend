@@ -1,7 +1,7 @@
 // SignUpPage.jsx
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { useState } from "react";
 
@@ -16,6 +16,8 @@ function SignUpPage() {
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [country, setCountry] = useState(null);
   const [city, setCity] = useState("");
+  const navigate  = useNavigate();
+
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -80,6 +82,8 @@ function SignUpPage() {
       .then((data) => {
         // Handle the response from the backend
         console.log(data);
+        navigate("/feed");
+        navigate("/feed", { replace: true });
         // Redirect to a success page or perform any other actions
       })
       .catch((error) => {
