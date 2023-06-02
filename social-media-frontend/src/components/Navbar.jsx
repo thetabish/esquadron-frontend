@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import { SearchOutlined } from "@mui/icons-material";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem('userData'));
   const [isOpen, setIsOpen] = useState(false);
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    // Navigate to the search results page with the search query as a URL parameter
+    navigate(`/search?query=${searchQuery}`);
+  };
   return (
     <div>
       <nav className="flex items-center justify-between py-10 h-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-black">
@@ -13,9 +23,17 @@ function Navbar() {
         </div>
         <div className="flex flex-wrap items-center justify-between gap-10 border bg-white border-gray-200 rounded-full p-1">
           <SearchOutlined />
-          <div className="border-none w-52">
-            <input type="text" placeholder="Search" />
+          <form onSubmit={handleSearchSubmit}>
+          <div className="border-none w-55">
+            <input
+              type="text"
+              placeholder="Type here.."
+              value={searchQuery}
+              onChange={handleInputChange}
+            />
+            <button type="submit">Search</button>
           </div>
+        </form>
         </div>
         <div className="hidden md:block">
           <div className="ml-10 flex items-baseline space-x-4 gap-10 font-poppins text-white">
