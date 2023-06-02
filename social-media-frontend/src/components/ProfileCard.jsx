@@ -1,6 +1,7 @@
 import React from "react";
 import Cover from '../assets/cover.jpg';
 import Profile from "../assets/profileImg.jpg";
+import { Link } from 'react-router-dom';
 
 const ProfileCard = () => {
     const ProfilePage = true;
@@ -20,7 +21,7 @@ const ProfileCard = () => {
             </div>
             <hr className="w-4/5 flex flex-col items-center justify-center self-center border border-slate-500" />
                 <span className="font-bold text-orange-500 self-center mb-4 cursor-pointer">
-                    Profile
+                <Link to = "/profile">Profile</Link>
                 </span>
         </div>
     );
