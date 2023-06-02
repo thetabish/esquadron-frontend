@@ -5,7 +5,7 @@ import Heart from '../assets/like.png'
 
 const Post = ({ data }) => {
     return (
-      <div className="flex flex-col my-6 p-4 bg-slate-100 rounded-lg gap-3 shadow-md max-w-3xl">
+      <div className="flex flex-col my-6 p-4 py-6 bg-slate-100 rounded-lg gap-3 shadow-md max-w-3xl font-poppins">
         <img src={data.img} alt="" className="w-full h-2/3 object-cover rounded-md" />
   
         <div className="flex items-start gap-6">

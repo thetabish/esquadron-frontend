@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SearchOutlined } from "@mui/icons-material";
+import { Link } from 'react-router-dom'
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,8 +18,8 @@ function Navbar() {
         </div>
         <div className="hidden md:block">
           <div className="ml-10 flex items-baseline space-x-4 gap-10 font-poppins text-white">
-            <a href="#">Home</a>
-            <a href="#">Profile</a>
+            <a href="#"><Link to = "/feed">Home</Link></a>
+            <a href="#"><Link to = "/profile">Profile</Link></a>
             <a href="#">Logout</a>
           </div>
         </div>
