@@ -1,44 +1,39 @@
 import React from 'react'
 import {UilScenery, UilPlayCircle} from "@iconscout/react-unicons"
 
+import { Followers } from "../Data/FollowersData";
+
 const Rightbar = () => {
-    return (
-      <div className="flex-3 top-14 h-[calc(100%)]">
-        <div className="container p-5">
-          <div className="item mb-5 p-5 shadow-lg bg-slate-100 rounded-md">
-            <span className="text-gray-600">Suggestions</span>
-            <div className="user flex items-center justify-between py-5 px-0">
-              <div className="userInfo flex items-center gap-3 relative">
-                <img
-                  src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                  alt=""
-                  className="w-10 h-10 rounded-md object-cover"
-                />
-                <span className="text-gray-600 mr-4">John Doe</span>
-              </div>
-              <div className="buttons flex items-center gap-3">
-                <button className="border-none p-2 text-white cursor-pointer bg-blue-500 rounded-lg">Follow</button>
-                <button className="border-none p-2 text-white cursor-pointer bg-red-700 rounded-lg">Dismiss</button>
-              </div>
-            </div>
-            <div className="user flex items-center justify-between py-5 px-0">
-              <div className="userInfo flex items-center gap-3 relative">
-                <img
-                  src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                  alt=""
-                  className="w-10 h-10 rounded-md object-cover"
-                />
-                <span className="text-gray-600 mr-4">John Doe</span>
-              </div>
-              <div className="buttons flex items-center gap-3">
-                <button className="border-none p-2 text-white cursor-pointer bg-blue-500 rounded-lg">Follow</button>
-                <button className="border-none p-2 text-white cursor-pointer bg-red-700 rounded-lg">Dismiss</button>
-              </div>
-            </div>
-          </div>
-        </div>
+  // Select the first two entries from the FollowersData array
+  const firstTwoFollowers = Followers.slice(0, 2);
+
+  return (
+    <div className="FollowersCard w-90% h-min flex flex-col gap-3 bg-slate-200 p-4 rounded-lg w-90% shadow-md mt-3 mr-3 py-5 font-poppins">
+      <div className="flex justify-between items-center cursor-pointer">
+        <div className="text-lg font-bold">Suggestions</div>
       </div>
-    );
-  };
-  
-  export default Rightbar;
+
+      {firstTwoFollowers.map((follower, id) => {
+        return (
+          <div className="follower flex justify-between items-center" key={id}>
+            <div className="flex gap-2">
+              <img src={follower.img} alt="" className="followerImage w-12 h-12 rounded-full" />
+              <div className="name flex flex-col items-start justify-center">
+                <span className="font-bold">{follower.name}</span>
+                <span>@{follower.username}</span>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+            >
+              Follow
+            </button>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default Rightbar;
