@@ -4,6 +4,7 @@ import Profile from "../assets/profileImg.jpg";
 
 const MainProfileCard = () => {
   const ProfilePage = true;
+  const userData = JSON.parse(localStorage.getItem('userData'));
   return (
     <div className="MainProfileCard bg-slate-200 rounded-xl flex flex-col relative gap-4 mb-5 mt-3 shadow-md font-poppins">
       <div className="ProfileImages relative flex flex-col items-center justify-center">
@@ -17,7 +18,7 @@ const MainProfileCard = () => {
         />
       </div>
       <div className="ProfileName flex flex-col items-center justify-center mt-12 gap-2">
-        <span className="font-bold text-xl">Avatar Aang</span>
+        <span className="font-bold text-xl">{userData.user_name}</span>
         <span>Senior Airbender</span>
       </div>
       <hr className="w-4/5 flex flex-col items-center justify-center self-center border border-slate-500" />

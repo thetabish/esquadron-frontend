@@ -3,6 +3,7 @@ import { SearchOutlined } from "@mui/icons-material";
 import { Link } from 'react-router-dom'
 
 function Navbar() {
+  const userData = JSON.parse(localStorage.getItem('userData'));
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
@@ -18,9 +19,9 @@ function Navbar() {
         </div>
         <div className="hidden md:block">
           <div className="ml-10 flex items-baseline space-x-4 gap-10 font-poppins text-white">
-            <a href="#"><Link to = "/feed">Home</Link></a>
-            <a href="#"><Link to = "/profile">Profile</Link></a>
-            <a href="#">Logout</a>
+            <a href="#"><Link to={{ pathname: "/feed"}}>Home</Link></a>
+            <a href="#"><Link to={{ pathname: "/profile"}}>Profile</Link></a>
+            <a href="#"><Link to={{ pathname: "/"}}>Logout</Link></a>
           </div>
         </div>
         <div className="-mr-2 flex md:hidden">

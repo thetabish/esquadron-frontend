@@ -10,11 +10,12 @@ const Feed = () => {
   
   const location = useLocation();
   const userData = location.state?.userData;
+  localStorage.setItem('userData', JSON.stringify(userData));
   return (
     <>
     <div className="bg-black">
-    <Navbar />
-  </div>
+    <Navbar/>
+    </div>
     <div className="Feed">
         <Leftbar userData={userData}/>
         <PostSide/>
