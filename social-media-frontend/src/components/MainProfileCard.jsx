@@ -23,19 +23,28 @@ const MainProfileCard = () => {
         method: 'POST',
         body: formData,
       })
-        .then((response) => response.text())
-        .then((imageName) => {
-          console.log(imageName); // Handle the response from the backend
-  
+      .then((response) => response.text())
+        .then((filename) => {
+          console.log(filename); // Handle the response from the backend
+
           // Construct the full URL for the profile picture
-          const profilePictureURL = `http://127.0.0.1:5000/profile-picture/${imageName}`;
+          let i = userData.id;
+          const profilePictureURL = `http://127.0.0.1:5000/update-profile-picture/${filename}/${i}`;
+
+          // Fetch the image blob from the constructed URL
+          return fetch(profilePictureURL);
+        })
+        .then((response) => response.blob())
+        .then((blob) => {
+          // Create object URL from the blob
+          const url = URL.createObjectURL(blob);
   
           // Update the profile picture URL in the userData object
-          const updatedUserData = { ...userData, profilePicture: imageName };
+          const updatedUserData = { ...userData, profilePicture: url };
           localStorage.setItem('userData', JSON.stringify(updatedUserData));
   
           // Update the profile picture URL in the UI
-          setProfilePictureUrl(profilePictureURL);
+          setProfilePictureUrl(url);
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -48,18 +57,17 @@ const MainProfileCard = () => {
 
   useEffect(() => {
     // Fetch the profile picture URL from the backend
-    fetch(`http://127.0.0.1:5000/profile-picture/${userData.profilePicture}`)
-    .then(response => response.blob()) // Convert response to blob
-    .then(blob => {
-      // Create object URL from the blob
-      const url = URL.createObjectURL(blob);
-      setProfilePictureUrl(url);
-    })
-    .catch(error => {
-      console.error('Error:', error);
+    fetch(`http://127.0.0.1:5000/profile-picture/${viewedProfileId}`)
+      .then(response => response.blob())
+      .then(blob => {
+          const url = URL.createObjectURL(blob);
+           setProfilePictureUrl(url);
+      })
+      .catch(error => {
+        console.error('Error:', error);
         // Set a default profile picture URL or handle the error as needed
       });
-  }, [userData.profilePicture]);
+  }, [viewedProfileId]);
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
