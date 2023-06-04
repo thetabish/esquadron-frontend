@@ -78,7 +78,7 @@ function SignUpPage() {
                   href="#"
                   className=" text-purple-600 hover:underline"
               >
-                  Terms and conditions
+                  <Link to = "/tnc">Terms and conditions</Link>
               </a>
               </div>
               <div className="mt-6">
