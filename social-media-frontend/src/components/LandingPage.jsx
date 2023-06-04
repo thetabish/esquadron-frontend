@@ -74,7 +74,7 @@ const LandingPage = () => {
         </div>
 
         <div className="flex flex-col justify-center md:w-1/4 md:pl-4">
-          <div className="bg-pink-500 p-8 flex flex-col justify-center items-center rounded-md">
+          <div className="bg-blue-200 p-8 flex flex-col justify-center items-center rounded-md">
             <h2 className="text-2xl mb-2 text-black">Join Us</h2>
             <Link
               to="/signin"

@@ -6,6 +6,8 @@ function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem('userData'));
+  const viewedProfileId = userData.id;
+  const profileUrl = `/profile/${viewedProfileId}`;
   const [isOpen, setIsOpen] = useState(false);
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -38,7 +40,7 @@ function Navbar() {
         <div className="hidden md:block">
           <div className="ml-10 flex items-baseline space-x-4 gap-10 font-poppins text-white">
             <a href="#"><Link to={{ pathname: "/feed"}}>Home</Link></a>
-            <a href="#"><Link to={{ pathname: "/profile"}}>Profile</Link></a>
+            <a href="#"><Link to={{ pathname: profileUrl}}>Profile</Link></a>
             <a href="#"><Link to={{ pathname: "/"}}>Logout</Link></a>
           </div>
         </div>
