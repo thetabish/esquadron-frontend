@@ -15,6 +15,15 @@ function ProfileInfo() {
     }
 
     const handleSubmit = (e) => {
+        const updatedFields = {};
+        
+        if (loc.trim() !== '') {
+          updatedFields.loc = loc;
+        }
+        if (work.trim() !== '') {
+          updatedFields.work = work;
+        }
+        
         e.preventDefault()
         setEdit( !edit )
         const bio = {rel, loc, work};
