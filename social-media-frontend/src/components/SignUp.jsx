@@ -213,7 +213,8 @@ function SignUpPage() {
           <div className="text-xs">
             By signing up, you agree to the&nbsp;
             <a href="#" className=" text-purple-600 hover:underline">
-              Terms and conditions
+                  <Link to = "/tnc">Terms and conditions</Link>
+
             </a>
           </div>
           <div className="mt-6">
