@@ -82,11 +82,19 @@ const MainProfileCard = () => {
         <div className="w-full h-1/2 overflow-hidden">
           <img src={Cover} alt="" className="w-full h-80 object-cover" />
         </div>
-        <img
-          src={profilePictureUrl || Profile} // Use the profile picture URL or a default image
-          alt=""
-          className="w-40 h-40 rounded-full absolute bottom-[-3rem] shadow-lg shadow-indigo-500/50"
-        />
+        {profilePictureUrl ? (
+  <img
+    src={profilePictureUrl}
+    alt=""
+    className="w-40 h-40 rounded-full absolute bottom-[-3rem] shadow-lg shadow-indigo-500/50"
+  />
+) : (
+  <img
+    src={Profile}
+    alt=""
+    className="w-40 h-40 rounded-full absolute bottom-[-3rem] shadow-lg shadow-indigo-500/50"
+  />
+)}
       </div>
       <div className="ProfileName flex flex-col items-center justify-center mt-12 gap-2">
         <span className="font-bold text-xl">{userData.user_name}</span>
