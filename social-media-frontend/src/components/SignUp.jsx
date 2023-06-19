@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { useState } from "react";
 
-import logoImage from "../../public/assests/logo.jpg";
+import logoImage from "../assets/logo.jpg";
 import countryList from "../../public/assests/country.js";
 
 function SignUpPage() {
