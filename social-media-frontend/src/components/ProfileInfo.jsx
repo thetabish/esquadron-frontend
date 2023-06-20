@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 const ProfileInfo = () => {
+  const userData = JSON.parse(localStorage.getItem('userData'));
   const [loc, setLoc] = useState("-");
   const [work, setWork] = useState("-");
   const [rel, setRel] = useState("-");
@@ -13,13 +14,20 @@ const ProfileInfo = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/bio");
+      const userID = userData.id;
+      const url = `http://127.0.0.1:5000/bio?user_id=${userID}`;
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const data = await response.json();
-
+  
       if (data) {
-        setRel(data.relationshipStatus || "-");
-        setLoc(data.livesIn || "-");
-        setWork(data.worksAt || "-");
+        setRel(data.relationship_status || "-");
+        setLoc(data.lives_in || "-");
+        setWork(data.works_at || "-");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -32,7 +40,8 @@ const ProfileInfo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const info = { rel, loc, work };
+    let id = userData.id
+    const info = { id, rel, loc, work };
     setEdit(!edit);
     console.log(info);
     try {
