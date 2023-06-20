@@ -40,11 +40,36 @@ const Adminctrl = (props) => {
 
   const handleSaveUser = (user) => {
     // Update the user data in the backend API
-    // You can send the updated user data to the server using an HTTP request (e.g., fetch or axios)
-
-    // After saving the changes, reset the editing state
-    setEditingUser(null);
-    setEditedUserFields({});
+    fetch('http://127.0.0.1:5000/update-admin-data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: user.user_id,
+        user_name: editedUserFields.user_name,
+        email: editedUserFields.email,
+        date_of_birth: editedUserFields.date_of_birth,
+        country: editedUserFields.country,
+        city: editedUserFields.city,
+        lives_in: editedUserFields.lives_in,
+        relationship_status: editedUserFields.relationship_status,
+        works_at: editedUserFields.works_at,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from the server (e.g., show success message)
+        console.log('User data updated:', data);
+  
+        // After saving the changes, reset the editing state
+        
+    window.location.reload(); // Refresh the page
+      })
+      .catch(error => {
+        // Handle any error that occurs during the API call
+        console.error('Error updating user data:', error);
+      });
   };
 
   if (error) {
