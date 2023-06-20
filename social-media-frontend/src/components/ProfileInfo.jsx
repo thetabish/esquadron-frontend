@@ -14,6 +14,8 @@ const ProfileInfo = () => {
 
   const fetchData = async () => {
     try {
+      
+      setLoc(userData.country + ', ' + userData.city);
       const userID = userData.id;
       const url = `http://127.0.0.1:5000/bio?user_id=${userID}`;
       const response = await fetch(url, {
@@ -26,7 +28,7 @@ const ProfileInfo = () => {
   
       if (data) {
         setRel(data.relationship_status || "-");
-        setLoc(userData.country + ', ' + userData.city || data.lives_in || "-");
+        setLoc(data.lives_in || "-");
         setWork(data.works_at || "-");
       }
     } catch (error) {

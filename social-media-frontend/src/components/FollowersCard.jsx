@@ -35,9 +35,12 @@ const FollowersCard = () => {
             <div className="text-lg font-bold">Followers</div>
         </div>
 
-      {friends.map((follower, id) => {
-        return (
-          <div className="follower flex justify-between items-center">
+      
+        {friends.length === 0 ? (
+        <div className="text-center font-bold">No followers</div>
+      ) : (
+        friends.map((follower, id) => (
+          <div className="follower flex justify-between items-center" key={id}>
             <div className=" flex gap-2">
               <img src={follower.img} alt="" className="followerImage w-12 h-12 rounded-full" />
               <div className="name flex flex-col items-start justify-center">
@@ -45,8 +48,8 @@ const FollowersCard = () => {
               </div>
             </div>
           </div>
-        );
-      })}
+        ))
+      )}
     </div>
   );
 };
