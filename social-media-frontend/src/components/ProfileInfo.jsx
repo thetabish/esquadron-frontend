@@ -26,7 +26,7 @@ const ProfileInfo = () => {
   
       if (data) {
         setRel(data.relationship_status || "-");
-        setLoc(data.lives_in || "-");
+        setLoc(userData.country + ', ' + userData.city || data.lives_in || "-");
         setWork(data.works_at || "-");
       }
     } catch (error) {

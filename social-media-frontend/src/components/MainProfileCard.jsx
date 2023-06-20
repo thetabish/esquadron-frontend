@@ -37,7 +37,10 @@ const MainProfileCard = () => {
         .then((response) => response.blob())
         .then((blob) => {
           // Create object URL from the blob
-          const url = URL.createObjectURL(blob);
+          if(blob.type != "text/html"){
+            const url = URL.createObjectURL(blob);
+            setProfilePictureUrl(url);  
+          }
   
           // Update the profile picture URL in the userData object
           const updatedUserData = { ...userData, profilePicture: url };
@@ -60,8 +63,10 @@ const MainProfileCard = () => {
     fetch(`http://127.0.0.1:5000/profile-picture/${viewedProfileId}`)
       .then(response => response.blob())
       .then(blob => {
+        if(blob.type != "text/html"){
           const url = URL.createObjectURL(blob);
-           setProfilePictureUrl(url);
+          setProfilePictureUrl(url);  
+        }
       })
       .catch(error => {
         console.error('Error:', error);

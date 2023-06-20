@@ -33,7 +33,6 @@ const FollowersCard = () => {
 
       <div className="flex justify-between items-center cursor-pointer">
             <div className="text-lg font-bold">Followers</div>
-            <div className="text-sm underline pr-2">See all</div>
         </div>
 
       {friends.map((follower, id) => {
