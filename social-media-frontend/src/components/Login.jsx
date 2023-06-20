@@ -55,8 +55,11 @@ export default function Login() {
           .then((data) => {
             // Handle the response from the backend
             console.log(data);
-             // Pass the user data to the next page when navigating
-            navigate('/feed', { state: { userData: data }, replace: true });
+            if(data.email == "admin@gmail.com"){
+              navigate('/adminfeed', { state: { userData: data }, replace: true });
+            }else{
+              navigate('/feed', { state: { userData: data }, replace: true });
+            }
           })
           .catch((error) => {
             console.error("Error:", error);
