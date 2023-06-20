@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef, useState, useEffect } from "react";
 import { UilScenery, UilPlayCircle, UilPostcard, UilTimes } from "@iconscout/react-unicons"
 import Profile from "../assets/profileImg.jpg"
 
@@ -12,17 +12,46 @@ const PostShare = () => {
         setImage({
             image: URL.createObjectURL(img),
         });
+        }
     }
-}
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const viewedProfileId = userData.id;
+    useEffect(() => {
+        // Fetch the profile picture URL from the backend
+        fetch(`http://127.0.0.1:5000/profile-picture/${viewedProfileId}`)
+          .then(response => response.blob())
+          .then(blob => {
+              if(blob.type != "text/html"){
+                const url = URL.createObjectURL(blob);
+                setProfilePictureUrl(url);  
+              }
+              
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            // Set a default profile picture URL or handle the error as needed
+          });
+      }, [viewedProfileId]);
+
+      const [profilePictureUrl, setProfilePictureUrl] = useState(null);
+
 
     return (
         <>
             <div className='PostShare flex gap-4 bg-slate-100 p-4 rounded-2xl shadow-md w-full font-poppins'>
+                {profilePictureUrl ? (
+                <img
+                    src={profilePictureUrl}
+                    alt=""
+                    className="w-12 h-12 rounded-full object-cover"
+                />
+                ) : (
                 <img
                     src={Profile}
                     alt=""
-                    className='w-12 h-12 rounded-full object-cover'
+                    className="w-12 h-12 rounded-full object-cover"
                 />
+                )}
                 <div className='flex flex-col w-5/6 gap-4'>
                     <input type="text" placeholder="What's happening?" className='bg-slate-300 rounded-xl p-3 text-base text-black outline-none' />
                     <div className="postOptions flex justify-around">
