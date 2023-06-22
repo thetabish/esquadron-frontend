@@ -6,6 +6,10 @@ const Posts = () => {
 
     useEffect(() => {
       fetchPosts();
+
+      const interval = setInterval(fetchPosts, 5000);
+
+      return () => clearInterval(interval);
     }, []);
 
     const fetchPosts = async () => {
@@ -18,12 +22,12 @@ const Posts = () => {
       }
     };
 
-
+    
     return (
       <div>
-        {posts.map((post, index) => (
-          <Post key={index} data={post} />
-        ))}
+          {posts.map((post, id)=>{
+              return <Post data={post} id={id}/>
+          })}
       </div>
     )
   }

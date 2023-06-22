@@ -2,7 +2,7 @@ import React from 'react'
 import './Profile.css'
 import ProfileLeft from '../components/ProfileLeft'
 import MainProfileCard from '../components/MainProfileCard'
-import PostSide from '../components/PostSide'
+import UserPostSide from '../components/UserPostSide'
 import Navbar from '../components/Navbar'
 import FollowersCard from '../components/FollowersCard'
 import { useLocation } from 'react-router-dom';
@@ -18,7 +18,7 @@ const Profile = () => {
         <ProfileLeft/>
         <div className="items-center">
             <div className=''><MainProfileCard userData={userData}/></div>
-            <PostSide/>
+            <UserPostSide/>
         </div>
         <FollowersCard/>
     </div>

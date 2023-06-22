@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage';
 import Register from './containers/Register'
 import SignIn from './containers/SignIn'
 import Feed from './containers/Feed'
+import Adminfeed from './containers/Adminfeed'
 import Profile from './containers/Profile'
 import SearchPage from './components/SearchPage';
 import NotFoundPage from './containers/NotFoundPage'
@@ -20,6 +21,7 @@ const App = () => {
            <Route path="/signin" element={<SignIn />} />
            <Route path="/signup" element={<Register />} />
            <Route path="/feed" element={<Feed />} />
+           <Route path="/adminfeed" element={<Adminfeed />} />
            <Route path="/profile/:viewedProfileId" element={<Profile />} />
            <Route path="/search" element={<SearchPage/>} />
            <Route path="/tnc" element={<TermsAndConditions />} />

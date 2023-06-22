@@ -8,6 +8,7 @@ const PostShare = () => {
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
   const [text, setText] = useState("");
+  const [profilePictureUrl, setProfilePictureUrl] = useState(null);
   const imageRef = useRef();
   const viewedProfileId = userData.id;
   const onImageChange = (event) => {
@@ -37,7 +38,7 @@ const PostShare = () => {
       });
   }, [viewedProfileId]);
 
-  const [profilePictureUrl, setProfilePictureUrl] = useState(null);
+  
 
 
 
