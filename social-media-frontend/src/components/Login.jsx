@@ -1,13 +1,29 @@
 import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logoImage from "../../public/assests/logo.jpg";
 export default function Login() {
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState("");
     const [password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");  
+    const [blockedUsers, setBlockedUsers] = useState([]);
+    const [isBlocked, setIsBlocked] = useState(false);
+    const [isInvalid, setIsInvalid] = useState(false);
+    
     const navigate  = useNavigate();
+
+    useEffect(() => {
+      // Fetch blocked user data from the API
+      fetch('http://127.0.0.1:5000/blocked-users')
+        .then(response => response.json())
+        .then(data => {
+          const blockedUserIds = data.blocked_users;
+          setBlockedUsers(blockedUserIds);
+        })
+        .catch(error => setError(error.message));
+    }, []);
+
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
       };
@@ -55,10 +71,21 @@ export default function Login() {
           .then((data) => {
             // Handle the response from the backend
             console.log(data);
-            if(data.email == "admin@gmail.com"){
-              navigate('/adminfeed', { state: { userData: data }, replace: true });
-            }else{
-              navigate('/feed', { state: { userData: data }, replace: true });
+            if(data.message == "Invalid email or password"){
+              setIsInvalid(true);
+            }
+            else if(blockedUsers.includes(data.id )){
+              setIsBlocked(true);
+              setIsInvalid(false);
+            }
+            else{
+              setIsBlocked(false);
+              setIsInvalid(false);
+              if(data.email == "admin@gmail.com"){
+                navigate('/adminfeed', { state: { userData: data }, replace: true });
+              }else{
+                navigate('/feed', { state: { userData: data }, replace: true });
+              }
             }
           })
           .catch((error) => {
@@ -117,12 +144,18 @@ export default function Login() {
               <p className="text-red-500 text-xs mt-1">{passwordError}</p>
             )}
           </div>
-                    <a
+          {isBlocked && (
+  <p className="text-red-500 text-sm mt-1">User Blocked by Admin!</p>
+)}
+{isInvalid && (
+  <p className="text-red-500 text-sm mt-1">Invalid email or password</p>
+)}
+                    {/* <a
                         href="#"
                         className="text-xs text-purple-600 hover:underline"
                     >
                         Forgot Password?
-                    </a>
+                    </a> */}
                     <div className="mt-6">
                         <button type="submit" className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
                             LOGIN
