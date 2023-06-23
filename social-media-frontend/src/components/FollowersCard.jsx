@@ -54,7 +54,7 @@ const FollowersCard = () => {
       <div className="FollowersCard w-90% h-min flex flex-col gap-3 bg-slate-200 p-4 rounded-lg w-90% shadow-md mt-3 mr-3 py-5 font-poppins">
 
 <div className="flex justify-between items-center cursor-pointer">
-      <div className="text-lg font-bold">Following</div>
+      <div className="text-lg font-bold" style={{ fontSize: '16px' }}>Following</div>
   </div>
 
 
@@ -64,9 +64,9 @@ const FollowersCard = () => {
   following.map((follower, id) => (
     <div className="follower flex justify-between items-center" key={id}>
       <div className=" flex gap-2">
-        <img src={follower.img} alt="" className="followerImage w-12 h-12 rounded-full" />
+        {/* <img src={follower.img} alt="" className="followerImage w-12 h-12 rounded-full" /> */}
         <div className="name flex flex-col items-start justify-center">
-          <span className="font-bold">{follower.user_name}</span>
+          <span className="font-bold" style={{ marginLeft: '20px' }}>{follower.user_name}</span>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@ const FollowersCard = () => {
 <div className="FollowersCard w-90% h-min flex flex-col gap-3 bg-slate-200 p-4 rounded-lg w-90% shadow-md mt-3 mr-3 py-5 font-poppins">
 
       <div className="flex justify-between items-center cursor-pointer">
-            <div className="text-lg font-bold">Followers</div>
+            <div className="text-lg font-bold" style={{ fontSize: '16px' }}>Followers</div>
         </div>
 
       
@@ -86,9 +86,9 @@ const FollowersCard = () => {
         followers.map((follower, id) => (
           <div className="follower flex justify-between items-center" key={id}>
             <div className=" flex gap-2">
-              <img src={follower.img} alt="" className="followerImage w-12 h-12 rounded-full" />
+              {/* <img src={follower.img} alt="" className="followerImage w-12 h-12 rounded-full" /> */}
               <div className="name flex flex-col items-start justify-center">
-                <span className="font-bold">{follower.user_name}</span>
+                <span className="font-bold" style={{ marginLeft: '20px' }}>{follower.user_name}</span>
               </div>
             </div>
           </div>
