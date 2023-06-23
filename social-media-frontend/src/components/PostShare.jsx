@@ -57,6 +57,7 @@ const PostShare = () => {
       setText("");
       setImage(null);
       setFile(null);
+      window.location.reload();
     } catch (error) {
       console.error("Error fetching post data:", error);
     }

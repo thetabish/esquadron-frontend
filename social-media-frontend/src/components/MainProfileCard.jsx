@@ -9,6 +9,8 @@ const MainProfileCard = () => {
   const fileInputRef = useRef(null);
   const userData = JSON.parse(localStorage.getItem('userData'));
   const isCurrentUser = userData.id == viewedProfileId;
+  const [following, setFollowing] = useState([]);
+  const [followers, setFollowers] = useState([]);
 
   const handleEditProfilePicture = (event) => {
     const file = event.target.files[0]; // Get the selected file from the file input
@@ -72,7 +74,37 @@ const MainProfileCard = () => {
         console.error('Error:', error);
         // Set a default profile picture URL or handle the error as needed
       });
-  }, [viewedProfileId]);
+      // Make the API call to get the list of friends for the current user
+      fetch('http://127.0.0.1:5000/get-friends', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_id: userData.id }),
+      })
+        .then((response) => response.json())
+        .then((friendsData) => {
+          setFollowing(friendsData);
+        })
+        .catch((error) => {
+          console.error('Error fetching friends:', error);
+        });
+
+        fetch('http://127.0.0.1:5000/get-followers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_id: userData.id }),
+      })
+        .then((response) => response.json())
+        .then((friendsData) => {
+          setFollowers(friendsData);
+        })
+        .catch((error) => {
+          console.error('Error fetching friends:', error);
+        });
+  }, [viewedProfileId], [userData.id], [userData.id]);
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -107,11 +139,11 @@ const MainProfileCard = () => {
       <hr className="w-4/5 flex flex-col items-center justify-center self-center border border-slate-500" />
       <div className="flex flex-row gap-10 items-center self-center">
         <div className="follow flex flex-col gap-1 items-center justify-center">
-          <span className="font-bold">6</span>
+          <span className="font-bold">{following.length}</span>
           <span>Following</span>
         </div>
         <div className="follow flex flex-col gap-1 items-center justify-center">
-          <span className="font-bold">1</span>
+          <span className="font-bold">{followers.length}</span>
           <span>Followers</span>
         </div>
         <div className="follow flex flex-col gap-1 items-center justify-center">
