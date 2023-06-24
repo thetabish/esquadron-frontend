@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Post from "./Post.jsx";
+import NoPost from "./NoPost.jsx";
 
 const UserPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -24,9 +25,13 @@ const UserPosts = () => {
 
   return (
     <div>
-      {posts.map((post) => (
-        <Post key={post.user_id} data={post} />
-      ))}
+      {posts.length > 0 ? (
+        posts.map((post, id) => (
+          <Post data={post} id={id} key={id} />
+        ))
+      ) : (
+        <NoPost />
+      )}
     </div>
   );
 };
