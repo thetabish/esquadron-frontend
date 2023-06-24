@@ -24,53 +24,38 @@ const Rightbar = () => {
     })
       .then((response) => response.json())
       .then((friendsData) => {
-        // Handle the retrieved friends data
-        // For example, you can update a friends state variable with the data
         console.log('Friends:', friendsData);
         setFollowing(friendsData);
-        
-        
+  
+        fetch("http://127.0.0.1:5000/get-all-users")
+          .then((response) => response.json())
+          .then((usersData) => {
+            const users = usersData;
+  
+            const array3 = [];
+            for (let i = 0; i < users.length; i++) {
+              let found = false;
+              for (let j = 0; j < friendsData.length; j++) {
+                if (users[i].user_name === friendsData[j].user_name) {
+                  found = true;
+                  break;
+                }
+              }
+              if (!found) {
+                array3.push(users[i]);
+              }
+            }
+  
+            setSugg(array3);
+          })
+          .catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
       })
       .catch((error) => {
         console.error('Error fetching friends:', error);
       });
-
-    fetch("http://127.0.0.1:5000/get-all-users")
-      .then((response) => response.json())
-      .then((usersData) => {
-        const users = usersData;
-        
-      const array3 = [];
-      for (let i = 0; i < users.length; i++) {
-        let found = false;
-        for (let j = 0; j < following.length; j++) {
-          if (users[i].user_name === following[j].user_name) {
-            found = true;
-            break;
-          }
-        }
-        if (!found) {
-          array3.push(users[i]);
-        }
-      }
-
-
-
-      setSugg(array3);
-
-        // Define the Followers array using the retrieved users
-        // const followers = [
-        //   { name: users[0], img: img1 },
-        //   { name: users[1], img: img2 },
-        //   { name: users[2], img: img3 },
-        //   { name: users[3], img: img4 },
-        // ];
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-
-  },[userData.id], []);
+  }, [userData.id]);
 
   const handleAddFriend = (profileId) => {
     const user_id = userData.id;
