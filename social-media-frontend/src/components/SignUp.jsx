@@ -19,8 +19,13 @@ function SignUpPage() {
   const [city, setCity] = useState("");
   const [openDialog, setOpenDialog] = useState(false); // State for dialog box
   const navigate  = useNavigate();
+  const [termsChecked, setTermsChecked] = useState(false);
+  const [termsError, setTermsError] = useState("");
 
-
+  const handleTermsCheck = (e) => {
+    setTermsChecked(e.target.checked);
+    setTermsError("");
+  };
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -73,6 +78,10 @@ function SignUpPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!termsChecked) {
+      setTermsError("Please accept the terms and conditions to continue.");
+      return;
+    }
 
     // Create a signup object with the form data
     const signupData = {
@@ -227,6 +236,7 @@ function SignUpPage() {
             >
               Terms and conditions
             </button>
+            
           </div>
           <div className="mt-6">
             <button
@@ -235,7 +245,11 @@ function SignUpPage() {
             >
               SIGN UP
             </button>
+            {termsError && (
+    <p className="text-red-500 text-xs mt-1">{termsError}</p>
+  )}
           </div>
+          
           <div className="mt-6">
             <div className="flex text-xs justify-center">
               Already have an account? &nbsp;
@@ -252,6 +266,7 @@ function SignUpPage() {
           
           <div className="p-6 rounded-lg">
         <h1 className="text-3xl font-bold mb-4">Terms and Conditions</h1>
+        
         <p>
           Welcome to our cat-tastic website! By accessing this site, you agree
           to the following feline-fabulous terms and conditions:
@@ -298,11 +313,22 @@ function SignUpPage() {
             demands for belly rubs or head scratches from your feline companion.
           </li>
         </ol>
-        <p>
-          By continuing to use our website, you acknowledge that you have read,
-          understood, and accept our funny terms and conditions. If you have any
-          questions, please feel free to contact our meow-nificent support team.
-        </p>
+        <div className="mt-4">
+      <label className="flex items-center">
+        <input
+          type="checkbox"
+          checked={termsChecked}
+          onChange={handleTermsCheck}
+          className="form-checkbox h-5 w-5 text-purple-600"
+        />
+        <span className="ml-2 text-l text-gray-700">
+          I accept the terms and conditions by continuing to use your website, I acknowledge that I have read,
+          understood, and accepted your funny terms and conditions. If I have any
+          questions, I shall contact your meow-nificent support team.
+        
+        </span>
+      </label>
+    </div>
       </div>
         </div>
       </Dialog>
