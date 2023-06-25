@@ -1,9 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-
+import { useParams } from "react-router-dom";
 
 const ProfileInfo = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
+  const { viewedProfileId } = useParams();
+  const userId = userData.id;
   const [loc, setLoc] = useState("-");
   const [work, setWork] = useState("-");
   const [rel, setRel] = useState("-");
@@ -12,13 +14,15 @@ const ProfileInfo = () => {
   
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [viewedProfileId]);
 
   const fetchData = async () => {
     try {
       setLoc(userData.country + ", " + userData.city);
-      const userID = userData.id;
-      const url = `http://127.0.0.1:5000/bio?user_id=${userID}`;
+      const url = `http://127.0.0.1:5000/bio?user_id=${parseInt(
+        viewedProfileId,
+        10
+      )}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -66,6 +70,8 @@ const ProfileInfo = () => {
       console.error("Error updating bio data:", error);
     }
   };
+
+  const isCurrentUser = parseInt(viewedProfileId) === userId;
   //   const userData = JSON.parse(localStorage.getItem("userData"));
   return (
     <form onSubmit={handleSubmit}>
@@ -148,22 +154,23 @@ const ProfileInfo = () => {
           )}
         </div>
         <div className="self-end">
-          {edit ? (
+        {isCurrentUser && edit ? (
             <button
               onClick={triggerEdit}
-              class=" text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"
             >
               Edit
             </button>
-          ) : (
+          ) : null}
+          {isCurrentUser && !edit ? (
             <button
               onClick={handleSubmit}
               type="button"
-              class=" text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"
             >
               Done
             </button>
-          )}
+          ) : null}
         </div>
       </div>
     </form>

@@ -7,6 +7,7 @@ import { saveAs } from "file-saver";
 const MainProfileCard = () => {
   const { viewedProfileId } = useParams();
   const fileInputRef = useRef(null);
+  const [username, setUsername] = useState("");
   const userData = JSON.parse(localStorage.getItem("userData"));
   const isCurrentUser = userData.id == viewedProfileId;
   const [following, setFollowing] = useState([]);
@@ -62,13 +63,34 @@ const MainProfileCard = () => {
 
   useEffect(
     () => {
+
+      // Fetch user data and set the username
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:5000/get-user-name/${viewedProfileId}`
+        );
+        const data = await response.json();
+        const { user_name: username } = data; // Extract the username from the response
+        console.log("Fetched username:", username);
+        setUsername(username);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setUsername("");
+      }
+    };
+
+    fetchUserData();
       // Fetch the user's posts count
       const fetchPostCount = async () => {
         try {
           const userData = JSON.parse(localStorage.getItem("userData"));
           const currentUserId = userData.id;
           const response = await fetch(
-            `http://127.0.0.1:5000/get-user-posts/${currentUserId}`
+            `http://127.0.0.1:5000/get-user-posts/${parseInt(
+              viewedProfileId,
+              10
+            )}`
           );
           const data = await response.json();
           const { posts } = data;
@@ -156,7 +178,11 @@ const MainProfileCard = () => {
         )}
       </div>
       <div className="ProfileName flex flex-col items-center justify-center mt-12 gap-2">
-        <span className="font-bold text-xl">{userData.user_name}</span>
+      {username ? (
+        <span className="font-bold text-xl">{username}</span>
+      ) : (
+        <span>Loading username...</span>
+      )}
       </div>
       <hr className="w-4/5 flex flex-col items-center justify-center self-center border border-slate-500" />
       <div className="flex flex-row gap-10 items-center self-center">

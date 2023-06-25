@@ -1,16 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import { UilScenery, UilPostcard, UilTimes } from "@iconscout/react-unicons";
 import Profile from "../assets/profileImg.jpg"
-
+import { useParams } from "react-router-dom";
 
 const PostShare = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
+  const { viewedProfileId } = useParams();
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
   const [text, setText] = useState("");
   const [profilePictureUrl, setProfilePictureUrl] = useState(null);
   const imageRef = useRef();
-  const viewedProfileId = userData.id;
+  const ProfileId = userData.id;
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
@@ -23,7 +24,9 @@ const PostShare = () => {
 
   useEffect(() => {
     // Fetch the profile picture URL from the backend
-    fetch(`http://127.0.0.1:5000/profile-picture/${viewedProfileId}`)
+    console.log('logged in User:',userData.id)
+    console.log('Profile',viewedProfileId)
+    fetch(`http://127.0.0.1:5000/profile-picture/${ProfileId}`)
       .then(response => response.blob())
       .then(blob => {
           if(blob.type != "text/html"){
@@ -36,7 +39,7 @@ const PostShare = () => {
         console.error('Error:', error);
         // Set a default profile picture URL or handle the error as needed
       });
-  }, [viewedProfileId]);
+  }, [ProfileId]);
 
   
 
@@ -63,6 +66,10 @@ const PostShare = () => {
     }
   };
 
+  if (parseInt(viewedProfileId) !== ProfileId) {
+    return null; // Hide the component if viewedProfileId is not userData.id
+  }
+  
   return (
     <>
       <div className="PostShare flex gap-4 bg-slate-100 p-4 rounded-2xl shadow-md w-full font-poppins">

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 const FollowersCard = () => {
   const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
-
   const userData = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(
