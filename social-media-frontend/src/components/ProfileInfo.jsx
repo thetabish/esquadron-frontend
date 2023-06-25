@@ -1,21 +1,22 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
+
 const ProfileInfo = () => {
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const userData = JSON.parse(localStorage.getItem("userData"));
   const [loc, setLoc] = useState("-");
   const [work, setWork] = useState("-");
   const [rel, setRel] = useState("-");
+  const [edu, setEdu] = useState("-");
   const [edit, setEdit] = useState(true);
-
+  
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      
-      setLoc(userData.country + ', ' + userData.city);
+      setLoc(userData.country + ", " + userData.city);
       const userID = userData.id;
       const url = `http://127.0.0.1:5000/bio?user_id=${userID}`;
       const response = await fetch(url, {
@@ -25,11 +26,12 @@ const ProfileInfo = () => {
         },
       });
       const data = await response.json();
-  
+
       if (data) {
         setRel(data.relationship_status || "-");
         setLoc(data.lives_in || "-");
         setWork(data.works_at || "-");
+        setEdu(data.education || "-");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -42,8 +44,8 @@ const ProfileInfo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let id = userData.id
-    const info = { id, rel, loc, work };
+    let id = userData.id;
+    const info = { id, rel, loc, work, edu };
     setEdit(!edit);
     console.log(info);
     try {
@@ -113,13 +115,36 @@ const ProfileInfo = () => {
             </b>
           </span>
           {edit ? (
+            <>
             <span>{work ? work : "-"}</span>
+            </>
           ) : (
-            <input
-              type="text"
-              value={work}
-              onChange={(e) => setWork(e.target.value)}
-            />
+            <div>
+              <input
+                type="text"
+                value={work}
+                onChange={(e) => setWork(e.target.value)}
+                className="mt-2"
+              />
+            </div>
+          )}
+        </div>
+        <div className="info">
+          <span>
+            <b>
+              Education<br></br>
+            </b>
+          </span>
+          {edit ? (
+            <span>{edu ? edu : "-"}</span>
+          ) : (
+            <div>
+              <input
+                type="text"
+                value={edu}
+                onChange={(e) => setEdu(e.target.value)}
+              />
+            </div>
           )}
         </div>
         <div className="self-end">
