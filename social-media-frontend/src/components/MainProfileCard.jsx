@@ -120,11 +120,14 @@ const MainProfileCard = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user_id: userData.id }),
+        body: JSON.stringify({ user_id: viewedProfileId }),
       })
         .then((response) => response.json())
         .then((friendsData) => {
-          setFollowing(friendsData);
+          const filteredFollowing = friendsData.filter(
+            (friend) => friend.id !== parseInt(viewedProfileId)
+          );
+          setFollowing(filteredFollowing);
         })
         .catch((error) => {
           console.error("Error fetching friends:", error);
@@ -135,11 +138,14 @@ const MainProfileCard = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user_id: userData.id }),
+        body: JSON.stringify({ user_id: viewedProfileId }),
       })
         .then((response) => response.json())
         .then((friendsData) => {
-          setFollowers(friendsData);
+          const filteredFollowers = friendsData.filter(
+            (follower) => follower.id !== parseInt(viewedProfileId)
+          );
+          setFollowers(filteredFollowers);
         })
         .catch((error) => {
           console.error("Error fetching friends:", error);

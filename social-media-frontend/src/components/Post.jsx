@@ -17,7 +17,6 @@ const Post = ({ data }) => {
       <div className="flex items-start gap-6">
         <img src={Heart} alt="" />
         <img src={Comment} alt="" />
-        <img src={Share} alt="" />
       </div>
 
       <div className="mb-0">

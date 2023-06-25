@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const FollowersCard = () => {
   const [following, setFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
+  const { viewedProfileId } = useParams();
   const userData = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(
@@ -14,7 +16,7 @@ const FollowersCard = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user_id: userData.id }),
+        body: JSON.stringify({ user_id: viewedProfileId }),
       })
         .then((response) => response.json())
         .then((friendsData) => {
@@ -32,7 +34,7 @@ const FollowersCard = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user_id: userData.id }),
+        body: JSON.stringify({ user_id: viewedProfileId }),
       })
         .then((response) => response.json())
         .then((friendsData) => {
@@ -61,7 +63,11 @@ const FollowersCard = () => {
         {following.length === 0 ? (
           <div className="text-center font-bold">No user found</div>
         ) : (
-          following.map((follower, id) => (
+          following.map((follower, id) => {
+            if (follower.id === parseInt(viewedProfileId)) {
+              return null;
+            }
+            return (         
             <div
               className="follower flex justify-between items-center"
               key={id}
@@ -69,15 +75,19 @@ const FollowersCard = () => {
               <div className=" flex gap-2">
                 {/* <img src={follower.img} alt="" className="followerImage w-12 h-12 rounded-full" /> */}
                 <div className="name flex flex-col items-start justify-center">
-                <Link to={`/profile/${follower.id}`} className="name flex flex-col items-start justify-center">
-                  <span className="font-bold" style={{ marginLeft: "20px" }}>
-                    {follower.user_name}
-                  </span>
-                </Link>
+                  <Link
+                    to={`/profile/${follower.id}`}
+                    className="name flex flex-col items-start justify-center"
+                  >
+                    <span className="font-bold" style={{ marginLeft: "20px" }}>
+                      {follower.user_name}
+                    </span>
+                  </Link>
                 </div>
               </div>
             </div>
-          ))
+            );
+          })
         )}
       </div>
       <div className="FollowersCard w-90% h-min flex flex-col gap-3 bg-slate-200 p-4 rounded-lg w-90% shadow-md mt-3 mr-3 py-5 font-poppins">
@@ -90,7 +100,11 @@ const FollowersCard = () => {
         {followers.length === 0 ? (
           <div className="text-center font-bold">No user found</div>
         ) : (
-          followers.map((follower, id) => (
+          followers.map((follower, id) => {
+            if (follower.id === parseInt(viewedProfileId)) {
+              return null;
+            }
+            return(
             <div
               className="follower flex justify-between items-center"
               key={id}
@@ -104,7 +118,8 @@ const FollowersCard = () => {
                 </div>
               </div>
             </div>
-          ))
+            );
+          })
         )}
       </div>
     </div>
