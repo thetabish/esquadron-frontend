@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Post from './Post.jsx';
+import NoPost from './NoPost.jsx';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -52,9 +53,13 @@ const Posts = () => {
 
   return (
     <div>
-      {posts.map((post, id) => {
-        return <Post data={post} id={id} key={id} />;
-      })}
+      {posts.length > 0 ? (
+        posts.map((post, id) => (
+          <Post data={post} id={id} key={id} />
+        ))
+      ) : (
+        <NoPost />
+      )}
     </div>
   );
 };

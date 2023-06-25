@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const FollowersCard = () => {
   const [following, setFollowing] = useState([]);
@@ -105,27 +106,29 @@ const FollowersCard = () => {
         ) : (
           following.map((follower, id) => (
             <div className="follower flex justify-between items-center" key={id}>
-              <div className="flex gap-2">
+              <div className=" flex gap-2">
                 {/* <img src={follower.img} alt="" className="followerImage w-12 h-12 rounded-full" /> */}
                 <div className="name flex flex-col items-start justify-center">
-                  <span className="font-bold" style={{ marginLeft: '20px' }}>{follower.user_name}</span>
+                  <Link to={`/profile/${follower.id}`} className="name flex flex-col items-start justify-center">
+                    <span className="font-bold" style={{ marginLeft: '20px' }}>{follower.user_name}</span>
+                  </Link>
                 </div>
               </div>
               {blockedUsers.includes(follower.id) ? (
-                  <button
-                    className="text-green-500 cursor-pointer"
-                    onClick={() => handleBlockUnblock(userData.id, follower.id, '/unblock-user')}
-                  >
-                    Unblock
-                  </button>
-                ) : (
-                  <button
-                    className="text-red-500 cursor-pointer"
-                    onClick={() => handleBlockUnblock(userData.id, follower.id, '/block-user')}
-                  >
-                    Block
-                  </button>
-                )}
+                <button
+                  className="text-green-500 cursor-pointer"
+                  onClick={() => handleBlockUnblock(userData.id, follower.id, '/unblock-user')}
+                >
+                  Unblock
+                </button>
+              ) : (
+                <button
+                  className="text-red-500 cursor-pointer"
+                  onClick={() => handleBlockUnblock(userData.id, follower.id, '/block-user')}
+                >
+                  Block
+                </button>
+              )}
             </div>
           ))
         )}
@@ -144,24 +147,26 @@ const FollowersCard = () => {
               <div className="flex gap-2">
                 {/* <img src={follower.img} alt="" className="followerImage w-12 h-12 rounded-full" /> */}
                 <div className="name flex flex-col items-start justify-center">
-                  <span className="font-bold" style={{ marginLeft: '20px' }}>{follower.user_name}</span>
+                <Link to={`/profile/${follower.id}`} className="name flex flex-col items-start justify-center">
+                    <span className="font-bold" style={{ marginLeft: '20px' }}>{follower.user_name}</span>
+                  </Link>
                 </div>
               </div>
               {blockedUsers.includes(follower.id) ? (
-                  <button
-                    className="text-green-500 cursor-pointer"
-                    onClick={() => handleBlockUnblock(userData.id, follower.id, '/unblock-user')}
-                  >
-                    Unblock
-                  </button>
-                ) : (
-                  <button
-                    className="text-red-500 cursor-pointer"
-                    onClick={() => handleBlockUnblock(userData.id, follower.id, '/block-user')}
-                  >
-                    Block
-                  </button>
-                )}
+                <button
+                  className="text-green-500 cursor-pointer"
+                  onClick={() => handleBlockUnblock(userData.id, follower.id, '/unblock-user')}
+                >
+                  Unblock
+                </button>
+              ) : (
+                <button
+                  className="text-red-500 cursor-pointer"
+                  onClick={() => handleBlockUnblock(userData.id, follower.id, '/block-user')}
+                >
+                  Block
+                </button>
+              )}
             </div>
           ))
         )}

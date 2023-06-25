@@ -21,7 +21,7 @@ function Navbar() {
     <div>
       <nav className="flex items-center justify-between py-10 h-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-black">
         <div className="flex items-center gap-10">
-          <div className="logo text-white">Meowtopia</div>
+          <div className="logo text-white font-poppins">Meowtopia</div>
         </div>
         <div className="flex flex-wrap items-center justify-between gap-10 border bg-white border-gray-200 rounded-full p-1">
           <SearchOutlined />
@@ -39,7 +39,7 @@ function Navbar() {
         </div>
         <div className="hidden md:block">
           <div className="ml-10 flex items-baseline space-x-4 gap-10 font-poppins text-white">
-            <a href="#"><Link to={{ pathname: "/feed"}}>Home</Link></a>
+            <a href="/feed"><Link to={{ pathname: "/feed"}}>Home</Link></a>
             <a href="#"><Link to={{ pathname: profileUrl}}>Profile</Link></a>
             <a href="#"><Link to={{ pathname: "/"}}>Logout</Link></a>
           </div>

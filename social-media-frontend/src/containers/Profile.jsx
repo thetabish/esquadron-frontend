@@ -5,7 +5,6 @@ import MainProfileCard from '../components/MainProfileCard'
 import UserPostSide from '../components/UserPostSide'
 import Navbar from '../components/Navbar'
 import FollowersCard from '../components/FollowersCard'
-import { useLocation } from 'react-router-dom';
 
 const Profile = () => {
   const userData = JSON.parse(localStorage.getItem('userData'));
