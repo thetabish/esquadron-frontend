@@ -30,6 +30,12 @@ const ProfileInfo = () => {
         },
       });
       const data = await response.json();
+      if(data.message == 'not found'){
+        setRel("-");
+        setLoc( "-");
+        setWork( "-");
+        setEdu( "-");
+      }
 
       if (data) {
         setRel(data.relationship_status || "-");
