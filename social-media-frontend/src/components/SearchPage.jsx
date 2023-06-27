@@ -20,8 +20,10 @@ function SearchPage() {
     fetch(`http://127.0.0.1:5000/search?query=${searchQuery}`)
       .then((response) => response.json())
       .then((data) => {
+        const idsToRemove = [31, userData.id]
+        const updatedUsers = data.filter(data => !idsToRemove.includes(data.id));
         // Update the profiles state with the retrieved data
-        setProfiles(data);
+        setProfiles(updatedUsers);
       })
       .catch((error) => {
         console.error('Error fetching profiles:', error);
