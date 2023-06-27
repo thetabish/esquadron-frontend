@@ -22,12 +22,27 @@ const Posts = () => {
     })
       .then((response) => response.json())
       .then((blockedUsersData) => {
-        console.log('Blocked Users:', blockedUsersData);
         const blockedUserIds = blockedUsersData.map((item) => item.id);
-        console.log(blockedUserIds);
-        setBlockedUsers(blockedUserIds);
-        fetchPosts(blockedUserIds);
-      })
+            fetch('http://127.0.0.1:5000/get-blocked-by-users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ user_id: userData.id }),
+        })
+          .then((response) => response.json())
+          .then((block2) => {
+            const blocked = block2.map((item) => item.id);
+            const final_block =  [...blockedUserIds, ...blocked];
+
+            console.log(final_block);
+            setBlockedUsers(final_block);
+            fetchPosts(final_block);
+          })
+          .catch((error) => {
+            console.error('Error fetching blocked users:', error);
+          });
+          })
       .catch((error) => {
         console.error('Error fetching blocked users:', error);
       });
