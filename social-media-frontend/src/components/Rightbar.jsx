@@ -45,8 +45,9 @@ const Rightbar = () => {
                 array3.push(users[i]);
               }
             }
-  
-            setSugg(array3);
+            const idsToRemove = [31, userData.id];
+            const updatedUsers = array3.filter(array3 => !idsToRemove.includes(array3.user_id));
+            setSugg(updatedUsers);
           })
           .catch((error) => {
             console.error("Error fetching user data:", error);
