@@ -20,10 +20,49 @@ function SearchPage() {
     fetch(`http://127.0.0.1:5000/search?query=${searchQuery}`)
       .then((response) => response.json())
       .then((data) => {
-        const idsToRemove = [31, userData.id]
-        const updatedUsers = data.filter(data => !idsToRemove.includes(data.id));
-        // Update the profiles state with the retrieved data
-        setProfiles(updatedUsers);
+        const searchresult = data;
+        fetch('http://127.0.0.1:5000/get-blocked-users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user_id: userData.id }),
+    })
+      .then((response) => response.json())
+      .then((blockedUsersData) => {
+        const blockedUserIds = blockedUsersData.map((item) => item.id);
+        fetch('http://127.0.0.1:5000/get-blocked-by-users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ user_id: userData.id }),
+        })
+          .then((response) => response.json())
+          .then((block2) => {
+            const blocked = block2.map((item) => item.id);
+            fetch('http://127.0.0.1:5000/blocked-users')
+              .then((response) => response.json())
+              .then((blockadmin) => {
+                const blockedadmin = blockadmin.blocked_users;
+                
+                const idsToRemove = [31, userData.id];
+                const final_block = [...blockedUserIds, ...blocked, ...blockedadmin, ...idsToRemove];
+                const updatedUsers = searchresult.filter(searchresult => !final_block.includes(searchresult.id));
+                // Update the profiles state with the retrieved data
+                setProfiles(updatedUsers);
+              })
+              .catch((error) => {
+                setError(error.message);
+              });
+          })
+          .catch((error) => {
+            console.error('Error fetching blocked users:', error);
+          });
+      })
+      .catch((error) => {
+        console.error('Error fetching blocked users:', error);
+      });
       })
       .catch((error) => {
         console.error('Error fetching profiles:', error);
