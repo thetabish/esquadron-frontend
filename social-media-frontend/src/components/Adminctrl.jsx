@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import countryList from "../../public/assests/country.js";
 
 
 const Adminctrl = (props) => {
@@ -136,6 +137,10 @@ const Adminctrl = (props) => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+  const clist = countryList.map((country) => ({
+    value: country,
+    label: country,
+  }));
 
   return (
     <div className="flex flex-col gap-4 items-center overflow-auto">
@@ -177,30 +182,43 @@ const Adminctrl = (props) => {
                   type="text"
                   value={editingUser === user.user_id ? editedUserFields.email : user.email}
                   onChange={event => handleFieldChange('email', event.target.value)}
-                  readOnly={editingUser !== user.user_id}
+                  readOnly="true"
                   className={`border rounded p-1 ${editingUser === user.user_id ? '' : 'border-transparent'}`}
                 />
               </div>
               <div className="mb-2">
-                <label className="font-bold">Date of Birth:</label>
-                <input
-                  type="text"
-                  value={editingUser === user.user_id ? editedUserFields.date_of_birth : user.date_of_birth}
-                  onChange={event => handleFieldChange('date_of_birth', event.target.value)}
-                  readOnly={editingUser !== user.user_id}
-                  className={`border rounded p-1 ${editingUser === user.user_id ? '' : 'border-transparent'}`}
-                />
-              </div>
-              <div className="mb-2">
-                <label className="font-bold">Country:</label>
-                <input
-                  type="text"
-                  value={editingUser === user.user_id ? editedUserFields.country : user.country}
-                  onChange={event => handleFieldChange('country', event.target.value)}
-                  readOnly={editingUser !== user.user_id}
-                  className={`border rounded p-1 ${editingUser === user.user_id ? '' : 'border-transparent'}`}
-                />
-              </div>
+  <label className="font-bold">Date of Birth:</label>
+  <input
+    type="date"
+    value={editingUser === user.user_id ? editedUserFields.date_of_birth : user.date_of_birth}
+    onChange={event => handleFieldChange('date_of_birth', event.target.value)}
+    readOnly={editingUser !== user.user_id}
+    className={`border rounded p-1 ${editingUser === user.user_id ? '' : 'border-transparent'}`}
+    required
+  />
+</div>
+<div className="mb-2">
+  <label className="font-bold">Country:</label>
+  {editingUser === user.user_id ? (
+    <select
+      value={editedUserFields.country}
+      onChange={event => handleFieldChange('country', event.target.value)}
+      className="border rounded p-1"
+    >
+      <option value="">Select Country</option>
+      {clist.map(country => (
+        <option key={country.value} value={country.value}>{country.label}</option>
+      ))}
+    </select>
+  ) : (
+    <input
+      type="text"
+      value={user.country}
+      readOnly
+      className="border rounded p-1 border-transparent"
+    />
+  )}
+</div>
               <div className="mb-2">
                 <label className="font-bold">City:</label>
                 <input
