@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Dialog } from '@mui/material';
 import logoImage from "../../public/assests/logo.jpg";
 import countryList from "../../public/assests/country.js";
+import ReCAPTCHA from "react-google-recaptcha";
 
 function SignUpPage() {
   const [email, setEmail] = useState("");
@@ -21,6 +22,7 @@ function SignUpPage() {
   const navigate  = useNavigate();
   const [termsChecked, setTermsChecked] = useState(false);
   const [termsError, setTermsError] = useState("");
+  const [captchaValue, setCaptchaValue] = useState(""); // Store the captcha value
 
   const handleTermsCheck = (e) => {
     setTermsChecked(e.target.checked);
@@ -28,6 +30,9 @@ function SignUpPage() {
   };
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+  };
+  const handleCaptchaChange = (value) => {
+    setCaptchaValue(value);
   };
 
   const handlePasswordChange = (e) => {
@@ -80,6 +85,12 @@ function SignUpPage() {
     e.preventDefault();
     if (!termsChecked) {
       setTermsError("Please accept the terms and conditions to continue.");
+      return;
+    }
+    if (!captchaValue) {
+      // Captcha value is missing
+      // Display an error or show a message to the user
+      setTermsError("Please check captcha");
       return;
     }
 
@@ -228,16 +239,22 @@ function SignUpPage() {
               className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
-          <div className="text-xs">
+          <div className="text-xs  mb-2">
             By signing up, you agree to the&nbsp;
             <button
               className="text-purple-600 hover:underline focus:outline-none"
               onClick={handleTermsAndConditionsClick}
             >
               Terms and conditions
-            </button>
-            
+            </button>     
           </div>
+          <div className="mb-4">
+    <ReCAPTCHA
+      sitekey="6LdjmN4mAAAAAFE-GVv68zcd33AVDZ14YQKMBOwR
+      "
+      onChange={handleCaptchaChange}
+    />
+  </div>
           <div className="mt-6">
             <button
               type="submit"

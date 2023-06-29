@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import logoImage from "../../public/assests/logo.jpg";
+import ReCAPTCHA from "react-google-recaptcha";
+
 export default function Login() {
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState("");
@@ -10,6 +12,8 @@ export default function Login() {
     const [blockedUsers, setBlockedUsers] = useState([]);
     const [isBlocked, setIsBlocked] = useState(false);
     const [isInvalid, setIsInvalid] = useState(false);
+    const [captchaValue, setCaptchaValue] = useState(""); // Store the captcha value
+
     
     const navigate  = useNavigate();
 
@@ -24,6 +28,9 @@ export default function Login() {
         .catch(error => setError(error.message));
     }, []);
 
+    const handleCaptchaChange = (value) => {
+      setCaptchaValue(value);
+    };
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
       };
@@ -52,6 +59,13 @@ export default function Login() {
       };
       const handleSubmit = (e) => {
         e.preventDefault();
+        if (!captchaValue) {
+          // Captcha value is missing
+          // Display an error or show a message to the user
+          setIsInvalid(true);
+          return;
+        }
+        setIsInvalid(false);
     
         // Create a signup object with the form data
         const signinData = {
@@ -144,11 +158,18 @@ export default function Login() {
               <p className="text-red-500 text-xs mt-1">{passwordError}</p>
             )}
           </div>
+          <div className="mb-4">
+    <ReCAPTCHA
+      sitekey="6LdjmN4mAAAAAFE-GVv68zcd33AVDZ14YQKMBOwR
+      "
+      onChange={handleCaptchaChange}
+    />
+  </div>
           {isBlocked && (
   <p className="text-red-500 text-sm mt-1">User Blocked by Admin!</p>
 )}
 {isInvalid && (
-  <p className="text-red-500 text-sm mt-1">Invalid email or password</p>
+  <p className="text-red-500 text-sm mt-1">Invalid email or password or captcha</p>
 )}
                     {/* <a
                         href="#"
