@@ -80,6 +80,20 @@ function SignUpPage() {
   const handleCloseDialog = () => {
     setOpenDialog(false); // Close the dialog box
   };
+  function getCurrentDate() {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    let month = (currentDate.getMonth() + 1).toString();
+    if (month.length === 1) {
+      month = "0" + month; // Add leading zero if month is single digit
+    }
+    let day = currentDate.getDate().toString();
+    if (day.length === 1) {
+      day = "0" + day; // Add leading zero if day is single digit
+    }
+    return `${year}-${month}-${day}`;
+  }
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -91,6 +105,10 @@ function SignUpPage() {
       // Captcha value is missing
       // Display an error or show a message to the user
       setTermsError("Please check captcha");
+      return;
+    }
+    if (!country) {
+      setTermsError("Please fill in the required fields.");
       return;
     }
 
@@ -201,16 +219,21 @@ function SignUpPage() {
           </div>
 
           <div className="mb-2">
-            <label className="block text-sm font-semibold text-gray-800">
-              Date of Birth
-            </label>
-            <input
-              type="date"
-              value={dateOfBirth}
-              onChange={handleDateOfBirthChange}
-              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-            />
-          </div>
+  <label className="block text-sm font-semibold text-gray-800">
+    Date of Birth
+  </label>
+  <input
+    type="date"
+    value={dateOfBirth}
+    onChange={handleDateOfBirthChange}
+    max={getCurrentDate()} 
+    required // Make the field required
+    onKeyDown={(e) => {
+      e.preventDefault();
+   }}
+    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+  />
+</div>
           <div className="mb-2">
             <label className="block text-sm font-semibold text-gray-800">
               Country
@@ -236,6 +259,7 @@ function SignUpPage() {
               id="city"
               value={city}
               onChange={handleCityChange}
+              required
               className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>

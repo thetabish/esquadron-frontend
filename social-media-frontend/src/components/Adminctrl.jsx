@@ -78,6 +78,20 @@ const Adminctrl = (props) => {
       });
   };
 
+  function getCurrentDate() {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    let month = (currentDate.getMonth() + 1).toString();
+    if (month.length === 1) {
+      month = "0" + month; // Add leading zero if month is single digit
+    }
+    let day = currentDate.getDate().toString();
+    if (day.length === 1) {
+      day = "0" + day; // Add leading zero if day is single digit
+    }
+    return `${year}-${month}-${day}`;
+  }
+
   const handleEditUser = (event, user) => {
     event.preventDefault();
     setEditingUser(user.user_id);
@@ -193,8 +207,13 @@ const Adminctrl = (props) => {
     value={editingUser === user.user_id ? editedUserFields.date_of_birth : user.date_of_birth}
     onChange={event => handleFieldChange('date_of_birth', event.target.value)}
     readOnly={editingUser !== user.user_id}
+    max={getCurrentDate()} 
+    required // Make the field required
+    onKeyDown={(e) => {
+      e.preventDefault();
+   }}
     className={`border rounded p-1 ${editingUser === user.user_id ? '' : 'border-transparent'}`}
-    required
+
   />
 </div>
 <div className="mb-2">
