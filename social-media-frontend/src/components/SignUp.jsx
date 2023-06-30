@@ -118,6 +118,13 @@ function SignUpPage() {
       setTermsError("Please fill in the required fields.");
       return;
     }
+    if (!captchaValue) {
+      // Captcha value is missing
+      // Display an error or show a message to the user
+      setTermsError("Please check captcha");
+      return;
+    }
+
 
     // Create a signup object with the form data
     const signupData = {
@@ -316,10 +323,11 @@ function SignUpPage() {
             </button>
           </div>
           <div className="mb-4">
-            {/* <ReCAPTCHA
-      sitekey="6LdjPOAmAAAAALq-5VcfXekMuYocuo2iWfg4EcxQ"
+            <ReCAPTCHA
+      sitekey="6LdjmN4mAAAAAFE-GVv68zcd33AVDZ14YQKMBOwR
+      "
       onChange={handleCaptchaChange}
-    /> */}
+    />
           </div>
           <div className="mt-6">
             <button

@@ -59,6 +59,14 @@ export default function Login() {
       };
       const handleSubmit = (e) => {
         e.preventDefault();
+        if (!captchaValue) {
+          // Captcha value is missing
+          // Display an error or show a message to the user
+          setIsInvalid(true);
+          return;
+        }
+        setIsInvalid(false);
+
         
     
         // Create a signup object with the form data
@@ -153,10 +161,11 @@ export default function Login() {
             )}
           </div>
           <div className="mb-4">
-    {/* <ReCAPTCHA
-      sitekey="6LdjPOAmAAAAALq-5VcfXekMuYocuo2iWfg4EcxQ"
+    <ReCAPTCHA
+      sitekey="6LdjmN4mAAAAAFE-GVv68zcd33AVDZ14YQKMBOwR
+      "
       onChange={handleCaptchaChange}
-    /> */}
+    />
   </div>
           {isBlocked && (
   <p className="text-red-500 text-sm mt-1">User Blocked by Admin!</p>
