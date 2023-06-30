@@ -14,7 +14,7 @@ const Adminctrl = (props) => {
     fetch('http://127.0.0.1:5000/get-all-users')
       .then(response => response.json())
       .then(data => {
-        const idsToRemove = [31]
+        const idsToRemove = [2]
         const updatedUsers = data.filter(data => !idsToRemove.includes(data.user_id));
         setUsers(updatedUsers)})
       .catch(error => setError(error.message));

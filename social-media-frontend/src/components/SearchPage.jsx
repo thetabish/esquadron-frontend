@@ -46,7 +46,7 @@ function SearchPage() {
               .then((blockadmin) => {
                 const blockedadmin = blockadmin.blocked_users;
                 
-                const idsToRemove = [31, userData.id];
+                const idsToRemove = [2, userData.id];
                 const final_block = [...blockedUserIds, ...blocked, ...blockedadmin, ...idsToRemove];
                 const updatedUsers = searchresult.filter(searchresult => !final_block.includes(searchresult.id));
                 // Update the profiles state with the retrieved data

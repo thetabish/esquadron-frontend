@@ -45,7 +45,7 @@ const Rightbar = () => {
                 array3.push(users[i]);
               }
             }
-            const idsToRemove = [31, userData.id];
+            const idsToRemove = [2, userData.id];
             const updatedUsers = array3.filter(array3 => !idsToRemove.includes(array3.user_id));
             setSugg(updatedUsers);
           })
