@@ -183,7 +183,7 @@ const ProfileInfo = () => {
         </div>
         <div className="info">
           <span>
-            <b>Gender:</b>
+            <b>Gender<br></br></b>
           </span>
           {edit ? (
             <span>{gender ? gender : "-"}</span>
@@ -199,7 +199,7 @@ const ProfileInfo = () => {
         </div>
         <div className="info">
           <span>
-            <b>Marital Status:</b>
+            <b>Marital Status<br></br></b>
           </span>
           {edit ? (
             <span>{maritalStatus ? maritalStatus : "-"}</span>
@@ -215,7 +215,7 @@ const ProfileInfo = () => {
         </div>
         <div className="info">
           <span>
-            <b>Interested in dating?:</b>
+            <b>Interested in dating?<br></br></b>
           </span>
           {edit ? (
             <span>{interestedInDating ? interestedInDating : "-"}</span>
@@ -231,7 +231,7 @@ const ProfileInfo = () => {
         </div>
         <div className="info">
           <span>
-            <b>Sexual Orientation:</b>
+            <b>Sexual Orientation<br></br></b>
           </span>
           {edit ? (
             <span>{sexualOrientation ? sexualOrientation : "-"}</span>
