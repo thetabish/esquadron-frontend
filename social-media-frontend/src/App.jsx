@@ -9,6 +9,7 @@ import Profile from './containers/Profile'
 import SearchPage from './components/SearchPage';
 import NotFoundPage from './containers/NotFoundPage'
 import TermsAndConditions from './containers/TermsAndConditions'
+import ForgotPassword from './containers/ForgotPassword';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ const App = () => {
         <Routes>
            <Route path="/" element={<LandingPage />} />
            <Route path="/signin" element={<SignIn />} />
+           <Route path="/forgot" element={<ForgotPassword />} />
            <Route path="/signup" element={<Register />} />
            <Route path="/feed" element={<Feed />} />
            <Route path="/adminfeed" element={<Adminfeed />} />

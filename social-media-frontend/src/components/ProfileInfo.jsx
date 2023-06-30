@@ -10,6 +10,10 @@ const ProfileInfo = () => {
   const [work, setWork] = useState("-");
   const [rel, setRel] = useState("-");
   const [edu, setEdu] = useState("-");
+  const [gender, setGender] = useState("-");
+  const [maritalStatus, setMaritalStatus] = useState("-");
+  const [interestedInDating, setInterestedInDating] = useState("-");
+  const [sexualOrientation, setSexualOrientation] = useState("-");
   const [edit, setEdit] = useState(true);
   
   useEffect(() => {
@@ -35,6 +39,10 @@ const ProfileInfo = () => {
         setLoc( "-");
         setWork( "-");
         setEdu( "-");
+        setGender("-");
+        setMaritalStatus("-");
+        setInterestedInDating("-");
+        setSexualOrientation("-");
       }
 
       if (data) {
@@ -42,6 +50,10 @@ const ProfileInfo = () => {
         setLoc(data.lives_in || "-");
         setWork(data.works_at || "-");
         setEdu(data.education || "-");
+        setGender(data.gender || "-");
+        setMaritalStatus(data.marital_status || "-");
+        setInterestedInDating(data.interested_in_dating || "-");
+        setSexualOrientation(data.sexual_orientation || "-");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -55,7 +67,17 @@ const ProfileInfo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let id = userData.id;
-    const info = { id, rel, loc, work, edu };
+    const info = {
+      id,
+      rel,
+      loc,
+      work,
+      edu,
+      gender,
+      maritalStatus,
+      interestedInDating,
+      sexualOrientation,
+    };
     setEdit(!edit);
     console.log(info);
     try {
@@ -159,6 +181,70 @@ const ProfileInfo = () => {
             </div>
           )}
         </div>
+        <div className="info">
+          <span>
+            <b>Gender:</b>
+          </span>
+          {edit ? (
+            <span>{gender ? gender : "-"}</span>
+          ) : (
+            <div>
+              <input
+                type="text"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+              />
+            </div>
+          )}
+        </div>
+        <div className="info">
+          <span>
+            <b>Marital Status:</b>
+          </span>
+          {edit ? (
+            <span>{maritalStatus ? maritalStatus : "-"}</span>
+          ) : (
+            <div>
+              <input
+                type="text"
+                value={maritalStatus}
+                onChange={(e) => setMaritalStatus(e.target.value)}
+              />
+            </div>
+          )}
+        </div>
+        <div className="info">
+          <span>
+            <b>Interested in dating?:</b>
+          </span>
+          {edit ? (
+            <span>{interestedInDating ? interestedInDating : "-"}</span>
+          ) : (
+            <div>
+              <input
+                type="text"
+                value={interestedInDating}
+                onChange={(e) => setInterestedInDating(e.target.value)}
+              />
+            </div>
+          )}
+        </div>
+        <div className="info">
+          <span>
+            <b>Sexual Orientation:</b>
+          </span>
+          {edit ? (
+            <span>{sexualOrientation ? sexualOrientation : "-"}</span>
+          ) : (
+            <div>
+              <input
+                type="text"
+                value={sexualOrientation}
+                onChange={(e) => setSexualOrientation(e.target.value)}
+              />
+            </div>
+          )}
+        </div>
         <div className="self-end">
         {isCurrentUser && edit ? (
             <button
@@ -171,7 +257,7 @@ const ProfileInfo = () => {
           {isCurrentUser && !edit ? (
             <button
               onClick={handleSubmit}
-              type="button"
+              type="submit"
               className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"
             >
               Done

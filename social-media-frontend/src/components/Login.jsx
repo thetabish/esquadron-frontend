@@ -59,13 +59,7 @@ export default function Login() {
       };
       const handleSubmit = (e) => {
         e.preventDefault();
-        if (!captchaValue) {
-          // Captcha value is missing
-          // Display an error or show a message to the user
-          setIsInvalid(true);
-          return;
-        }
-        setIsInvalid(false);
+        
     
         // Create a signup object with the form data
         const signinData = {
@@ -159,11 +153,10 @@ export default function Login() {
             )}
           </div>
           <div className="mb-4">
-    <ReCAPTCHA
-      sitekey="6LdjmN4mAAAAAFE-GVv68zcd33AVDZ14YQKMBOwR
-      "
+    {/* <ReCAPTCHA
+      sitekey="6LdjPOAmAAAAALq-5VcfXekMuYocuo2iWfg4EcxQ"
       onChange={handleCaptchaChange}
-    />
+    /> */}
   </div>
           {isBlocked && (
   <p className="text-red-500 text-sm mt-1">User Blocked by Admin!</p>
@@ -191,6 +184,12 @@ export default function Login() {
                         <Link to = "/signup">Sign up</Link>
                     </a>
                 </p>
+                <p className="mt-8 text-xs font-light text-center text-gray-700">
+                    <a href="/forgot" className="font-medium text-purple-600 hover:underline">
+                        <Link to = "/forgot">Forgot Password?</Link>
+                    </a>
+                </p>
+              
             </div>
         </div>
     );
