@@ -36,7 +36,7 @@ const ProfileInfo = () => {
       const data = await response.json();
       if(data.message == 'not found'){
         setRel("-");
-        setLoc( "-");
+        setLoc(userData.country + ', '+userData.city);
         setWork( "-");
         setEdu( "-");
         setGender("-");
@@ -45,7 +45,7 @@ const ProfileInfo = () => {
         setSexualOrientation("-");
       }
 
-      if (data) {
+      else if (data) {
         setRel(data.relationship_status || "-");
         setLoc(data.lives_in || "-");
         setWork(data.works_at || "-");
