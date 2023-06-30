@@ -18,6 +18,7 @@ export default function Forgot() {
   const [isEmailExists, setIsEmailExists] = useState(false);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [passwordError, setPasswordError] = useState("");
+  const [answerError, setAnswerError] = useState("");
    // Store the captcha value
 
   const navigate = useNavigate();
@@ -134,7 +135,9 @@ export default function Forgot() {
           setIsAnswerCorrect(true);
           setOpenDialog(false);
           setOpenPassDialog(true);
+          setAnswerError(false)
         } else {
+            setAnswerError(true)
           // Handle the case when the answer is incorrect
         }
       })
@@ -167,6 +170,7 @@ export default function Forgot() {
         // Handle the response and perform necessary actions
         if (data.success) {
             navigate("/signin");
+
           // Password updated successfully
           // Perform any additional actions or display a success message
         } else {
@@ -261,6 +265,9 @@ export default function Forgot() {
               className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
+          {answerError && (
+              <p className="text-red-500 text-xs mt-1">Incorrect Answer</p>
+            )}
           <button
               type="submit"
               className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
