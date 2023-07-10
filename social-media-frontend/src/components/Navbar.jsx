@@ -3,9 +3,9 @@ import { SearchOutlined } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const userData = JSON.parse(localStorage.getItem('userData'));
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-  const userData = JSON.parse(localStorage.getItem('userData'));
   const viewedProfileId = userData.id;
   const profileUrl = `/profile/${viewedProfileId}`;
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +17,11 @@ function Navbar() {
     // Navigate to the search results page with the search query as a URL parameter
     navigate(`/search?query=${searchQuery}`);
   };
+  const handleNavigation = () => {
+    // navigate('/feed', { state: { userData: userData }});
+    history.go(-1);
+  };
+    
   return (
     <div>
       <nav className="flex items-center justify-between py-10 h-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-black">
@@ -39,7 +44,7 @@ function Navbar() {
         </div>
         <div className="hidden md:block">
           <div className="ml-10 flex items-baseline space-x-4 gap-10 font-poppins text-white">
-            <a href="/feed"><Link to={{ pathname: "/feed"}}>Home</Link></a>
+            <a href="#" onClick={handleNavigation}>Home</a>
             <a href="#"><Link to={{ pathname: profileUrl}}>Profile</Link></a>
             <a href="#"><Link to={{ pathname: "/"}}>Logout</Link></a>
           </div>

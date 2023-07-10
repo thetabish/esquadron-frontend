@@ -15,13 +15,13 @@ const Post = ({ data }) => {
       )}
 
       <div className="flex items-start gap-6">
-        <img src={Heart} alt="" />
-        <img src={Comment} alt="" />
+        {/* <img src={Heart} alt="" />
+        <img src={Comment} alt="" /> */}
       </div>
 
       <div className="mb-0">
         <span>
-          <b>{data.user_name}&nbsp;</b>
+          <b>{data.user_name}: &nbsp;</b>
         </span>
         <span>{data.text}</span>
       </div>

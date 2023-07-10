@@ -7,6 +7,7 @@ const FollowersCard = () => {
   const [followers, setFollowers] = useState([]);
   const { viewedProfileId } = useParams();
   const [blockedUsers, setBlockedUsers] = useState([]);
+  const [blockedadmin, setblockedadmin] = useState([]);
   const userData = JSON.parse(localStorage.getItem('userData'));
 
   const fetchFriendsData = () => {
@@ -64,10 +65,22 @@ const FollowersCard = () => {
       });
   };
 
+  const blockedByAdmin = () => {
+    fetch('http://127.0.0.1:5000/blocked-users')
+              .then((response) => response.json())
+              .then((blockadmin) => {
+                setblockedadmin(blockadmin.blocked_users);
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
+  };
+
   useEffect(() => {
     fetchFriendsData();
     fetchFollowersData();
     fetchBlockedUsers();
+    blockedByAdmin();
   }, [userData.id]);
 
   const handleBlockUnblock = (userId, blockedUserId, endpoint) => {
@@ -110,6 +123,19 @@ const FollowersCard = () => {
             if (follower.id === parseInt(viewedProfileId)) {
               return null;
             }
+            const isBlockedByAdmin = blockedadmin.includes(follower.id);
+            const isBlockedByUser = blockedUsers.includes(follower.id);
+            const renderLink = isBlockedByAdmin ? (
+              <span className="font-bold" style={{ marginLeft: "20px" }}>
+                {follower.user_name} is Blocked by admin
+              </span>
+            ) : (
+              <Link to={`/profile/${follower.id}`} className="name flex flex-col items-start justify-center">
+                <span className="font-bold" style={{ marginLeft: "20px" }}>
+                  {follower.user_name}
+                </span>
+              </Link>
+            );
             return (         
             <div
               className="follower flex justify-between items-center"
@@ -118,31 +144,29 @@ const FollowersCard = () => {
               <div className=" flex gap-2">
                 {/* <img src={follower.img} alt="" className="followerImage w-12 h-12 rounded-full" /> */}
                 <div className="name flex flex-col items-start justify-center">
-                  <Link
-                    to={`/profile/${follower.id}`}
-                    className="name flex flex-col items-start justify-center"
-                  >
-                    <span className="font-bold" style={{ marginLeft: "20px" }}>
-                      {follower.user_name}
-                    </span>
-                  </Link>
+                {renderLink}
                 </div>
               </div>
-              {blockedUsers.includes(follower.id) ? (
-                <button
-                  className="text-green-500 cursor-pointer"
-                  onClick={() => handleBlockUnblock(userData.id, follower.id, '/unblock-user')}
-                >
-                  Unblock
-                </button>
-              ) : (
-                <button
-                  className="text-red-500 cursor-pointer"
-                  onClick={() => handleBlockUnblock(userData.id, follower.id, '/block-user')}
-                >
-                  Block
-                </button>
-              )}
+              {!isBlockedByAdmin && (
+                  <>
+                    {isBlockedByUser ? (
+                      <button
+                        className="text-green-500 cursor-pointer"
+                        onClick={() => handleBlockUnblock(userData.id, follower.id, "/unblock-user")}
+                      >
+                        Unblock
+                      </button>
+                    ) : (
+                      <button
+                        className="text-red-500 cursor-pointer"
+                        onClick={() => handleBlockUnblock(userData.id, follower.id, "/block-user")}
+                      >
+                        Block
+                      </button>
+                    )}
+                  </>
+                )}
+              {/* {isBlockedByAdmin && <div>User blocked by admin</div>} */}
             </div>
             );
           })
@@ -161,6 +185,20 @@ const FollowersCard = () => {
             if (follower.id === parseInt(viewedProfileId)) {
               return null;
             }
+            
+            const isBlockedByAdmin = blockedadmin.includes(follower.id);
+            const isBlockedByUser = blockedUsers.includes(follower.id);
+            const renderLink = isBlockedByAdmin ? (
+              <span className="font-bold" style={{ marginLeft: "20px" }}>
+                {follower.user_name} is Blocked by admin
+              </span>
+            ) : (
+              <Link to={`/profile/${follower.id}`} className="name flex flex-col items-start justify-center">
+                <span className="font-bold" style={{ marginLeft: "20px" }}>
+                  {follower.user_name}
+                </span>
+              </Link>
+            );
             return(
             <div
               className="follower flex justify-between items-center"
@@ -169,26 +207,29 @@ const FollowersCard = () => {
               <div className=" flex gap-2">
                 {/* <img src={follower.img} alt="" className="followerImage w-12 h-12 rounded-full" /> */}
                 <div className="name flex flex-col items-start justify-center">
-                <Link to={`/profile/${follower.id}`} className="name flex flex-col items-start justify-center">
-                    <span className="font-bold" style={{ marginLeft: '20px' }}>{follower.user_name}</span>
-                  </Link>
+                {renderLink}
                 </div>
               </div>
-              {blockedUsers.includes(follower.id) ? (
-                <button
-                  className="text-green-500 cursor-pointer"
-                  onClick={() => handleBlockUnblock(userData.id, follower.id, '/unblock-user')}
-                >
-                  Unblock
-                </button>
-              ) : (
-                <button
-                  className="text-red-500 cursor-pointer"
-                  onClick={() => handleBlockUnblock(userData.id, follower.id, '/block-user')}
-                >
-                  Block
-                </button>
-              )}
+              {!isBlockedByAdmin && (
+                  <>
+                    {isBlockedByUser ? (
+                      <button
+                        className="text-green-500 cursor-pointer"
+                        onClick={() => handleBlockUnblock(userData.id, follower.id, "/unblock-user")}
+                      >
+                        Unblock
+                      </button>
+                    ) : (
+                      <button
+                        className="text-red-500 cursor-pointer"
+                        onClick={() => handleBlockUnblock(userData.id, follower.id, "/block-user")}
+                      >
+                        Block
+                      </button>
+                    )}
+                  </>
+                )}
+              {/* {isBlockedByAdmin && <div>User blocked by admin</div>} */}
             </div>
             );
           })
