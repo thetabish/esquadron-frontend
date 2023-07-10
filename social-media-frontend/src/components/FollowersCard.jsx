@@ -21,7 +21,23 @@ const FollowersCard = () => {
       .then((response) => response.json())
       .then((friendsData) => {
         console.log('Friends:', friendsData);
-        setFollowing(friendsData);
+        fetch('http://127.0.0.1:5000/get-blocked-by-users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ user_id: userData.id }),
+        })
+          .then((response) => response.json())
+          .then((block2) => {
+            const blocked = block2.map((item) => item.id);
+            const final_block = [...blocked];
+            const filteredFriends = friendsData.filter((friend) => !final_block.includes(friend.id));
+            setFollowing(filteredFriends);
+          })
+          .catch((error) => {
+            console.error('Error fetching friends:', error);
+          });
       })
       .catch((error) => {
         console.error('Error fetching friends:', error);
@@ -37,12 +53,28 @@ const FollowersCard = () => {
       body: JSON.stringify({ user_id: viewedProfileId }),
     })
       .then((response) => response.json())
-      .then((followersData) => {
-        console.log('Followers:', followersData);
-        setFollowers(followersData);
+      .then((friendsData) => {
+        console.log('Friends:', friendsData);
+        fetch('http://127.0.0.1:5000/get-blocked-by-users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ user_id: userData.id }),
+        })
+          .then((response) => response.json())
+          .then((block2) => {
+            const blocked = block2.map((item) => item.id);
+            const final_block = [...blocked];
+            const filteredFriends = friendsData.filter((friend) => !final_block.includes(friend.id));
+            setFollowers(filteredFriends);
+          })
+          .catch((error) => {
+            console.error('Error fetching friends:', error);
+          });
       })
       .catch((error) => {
-        console.error('Error fetching followers:', error);
+        console.error('Error fetching friends:', error);
       });
   };
 
@@ -57,8 +89,8 @@ const FollowersCard = () => {
       .then((response) => response.json())
       .then((blockedUsersData) => {
         console.log('Blocked Users:', blockedUsersData);
-        blockedUsersData = blockedUsersData.map((item) => item.id);
-        setBlockedUsers(blockedUsersData);
+        const blockedUserIds = blockedUsersData.map((item) => item.id);
+        setBlockedUsers(blockedUserIds);
       })
       .catch((error) => {
         console.error('Error fetching blocked users:', error);
@@ -67,13 +99,13 @@ const FollowersCard = () => {
 
   const blockedByAdmin = () => {
     fetch('http://127.0.0.1:5000/blocked-users')
-              .then((response) => response.json())
-              .then((blockadmin) => {
-                setblockedadmin(blockadmin.blocked_users);
-              })
-              .catch((error) => {
-                console.log(error.message);
-              });
+      .then((response) => response.json())
+      .then((blockadmin) => {
+        setblockedadmin(blockadmin.blocked_users);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   useEffect(() => {
